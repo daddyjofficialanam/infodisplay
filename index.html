@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Find us on Instagram</title>
+  <meta id="desc" name="description" content="A minimal, single-file page that displays a stylish Instagram link." />
+  <style>
+    :root {
+      --bg: #0f1115;
+      --fg: #e5e7eb;
+      --muted: #c9ced6;
+      --card: rgba(10, 14, 22, .72);
+      --accent1: #F58529;
+      --accent2: #FEDA77;
+      --accent3: #DD2A7B;
+      --accent4: #8134AF;
+      --accent5: #515BD4;
+      --radius: 20px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--fg);
+      background: var(--bg);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    /* Background image layer */
+    body::before {
+      content: "";
+      position: fixed; inset: 0;
+      background: url('daddyj_bg.png') center / cover no-repeat;
+      z-index: -1;
+    }
+    /* Optional subtle overlay for readability */
+    body::after {
+      content: "";
+      position: fixed; inset:0;
+      background: radial-gradient(800px 600px at 15% 10%, rgba(0,0,0,.25), transparent 60%),
+                  radial-gradient(1000px 750px at 85% 90%, rgba(0,0,0,.25), transparent 65%);
+      z-index: -1;
+      pointer-events: none;
+    }
+    /* Language switcher (top-right) */
+    .lang-switch {
+      position: fixed; top: 16px; right: 16px;
+      background: rgba(0,0,0,.35);
+      border-radius: 999px;
+      padding: 6px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      display: inline-flex; align-items: center; gap: 4px; z-index: 10;
+      backdrop-filter: blur(6px);
+    }
+    .lang-switch button {
+      appearance: none; background: transparent; border: 0;
+      color: var(--fg); padding: 8px 12px; border-radius: 999px;
+      font-weight: 700; letter-spacing: .2px; cursor: pointer;
+      transition: transform .12s ease, background .2s ease, color .2s ease;
+    }
+    .lang-switch button:focus-visible { outline: 2px solid white; outline-offset: 2px; }
+    .lang-switch button[aria-pressed="true"] {
+      color: #fff;
+      background: conic-gradient(from 210deg, var(--accent1), var(--accent2), var(--accent3), var(--accent4), var(--accent5), var(--accent1));
+      transform: translateY(-1px);
+    }
+    .card {
+      width: min(620px, 100%);
+      background: var(--card);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      padding: 28px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .brand {
+      display: flex; justify-content: center; margin-bottom: 8px;
+    }
+    .brand img {
+      width: min(440px, 80%); height: auto; display: block;
+      filter: drop-shadow(0 4px 16px rgba(0,0,0,.35));
+    }
+    h1 { margin: 0 0 8px; font-size: 0; } /* hidden text h1 replaced by logo; kept for a11y via .visually-hidden */
+    p { margin: 0 0 20px; color: var(--muted); }
+    .ig-link {
+      --g: conic-gradient(from 210deg, var(--accent1), var(--accent2), var(--accent3), var(--accent4), var(--accent5), var(--accent1));
+      display: inline-flex; align-items: center; gap: 12px;
+      text-decoration: none; padding: 14px 18px; border-radius: 999px;
+      font-weight: 600; position: relative; isolation: isolate; color: white; background: var(--g);
+      transition: transform .12s ease;
+    }
+    .ig-link:focus-visible { outline: 2px solid white; outline-offset: 2px; }
+    .ig-link:hover { transform: translateY(-1px); }
+    .ig-link::before {
+      content:""; position:absolute; inset:0; border-radius:inherit; filter: blur(18px); opacity:.5; z-index:-1; background: var(--g); transition: opacity .2s ease;
+    }
+    .ig-link:hover::before { opacity:.8; }
+    .ig-icon { width: 22px; height: 22px; flex: 0 0 22px; }
+    .handle { font-weight: 700; }
+    .alt { margin-top: 18px; font-size: 14px; }
+    .alt a { color: var(--fg); }
+    .visually-hidden {
+      position: absolute !important; height: 1px; width: 1px;
+      overflow: hidden; clip: rect(1px,1px,1px,1px); white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <!-- Language switcher -->
+  <div class="lang-switch" role="group" aria-label="Language">
+    <button type="button" data-set-lang="en" aria-pressed="true" title="English">EN</button>
+    <button type="button" data-set-lang="ko" aria-pressed="false" title="한국어">KO</button>
+    <button type="button" data-set-lang="es" aria-pressed="false" title="Español">ES</button>
+  </div>
+
+  <main class="card" role="main">
+    <div class="brand" aria-hidden="true">
+      <img src="daddyj_logo.png" alt="Daddy J — Casual Bar logo" />
+    </div>
+    <h1 id="h1" class="visually-hidden">Find us on Instagram</h1>
+    <p id="sub">Tap the button to visit our profile.</p>
+
+    <a id="igLink" class="ig-link" href="https://instagram.com/daddyj_anam" target="_blank" rel="noopener noreferrer" aria-label="Open Instagram profile in a new tab">
+      <svg class="ig-icon" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="igGrad" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#F58529"/>
+            <stop offset="30%" stop-color="#FEDA77"/>
+            <stop offset="50%" stop-color="#DD2A7B"/>
+            <stop offset="70%" stop-color="#8134AF"/>
+            <stop offset="100%" stop-color="#515BD4"/>
+          </linearGradient>
+        </defs>
+        <path fill="url(#igGrad)" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.51 5.51 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zM18 6.8a1.2 1.2 0 1 1-1.2 1.2A1.2 1.2 0 0 1 18 6.8z"/>
+      </svg>
+      <span class="handle">@daddyj_anam</span>
+      <span aria-hidden="true">→</span>
+    </a>
+
+    <p class="alt"><span id="plainLabel">Prefer a plain link?</span> <a href="https://instagram.com/daddyj_anam" target="_blank" rel="noopener noreferrer">@daddyj_anam</a></p>
+
+    <p id="vh" class="visually-hidden">External link opens in a new tab.</p>
+  </main>
+
+  <script>
+    // Basic i18n dictionary
+    const I18N = {
+      en: {
+        title: "Find us on Instagram",
+        subtitle: "Tap the button to visit our profile.",
+        aria: "Open Instagram profile in a new tab",
+        plain: "Prefer a plain link?",
+        external: "External link opens in a new tab.",
+        description: "A minimal, single-file page that displays a stylish Instagram link.",
+      },
+      ko: {
+        title: "인스타그램에서 만나보세요",
+        subtitle: "프로필로 이동하려면 버튼을 눌러 주세요.",
+        aria: "새 탭에서 인스타그램 프로필 열기",
+        plain: "텍스트 링크가 더 편하신가요?",
+        external: "외부 링크가 새 탭에서 열립니다.",
+        description: "세련된 인스타그램 링크를 보여 주는 단일 파일 페이지입니다.",
+      },
+      es: {
+        title: "Encuéntranos en Instagram",
+        subtitle: "Toca el botón para visitar nuestro perfil.",
+        aria: "Abrir el perfil de Instagram en una pestaña nueva",
+        plain: "¿Prefieres un enlace simple?",
+        external: "El enlace externo se abre en una pestaña nueva.",
+        description: "Una página mínima de archivo único que muestra un enlace elegante de Instagram.",
+      }
+    };
+
+    function applyLang(lang) {
+      const dict = I18N[lang] || I18N.en;
+      document.documentElement.lang = (lang === 'ko') ? 'ko' : (lang === 'es' ? 'es' : 'en');
+      document.title = dict.title;
+      document.getElementById('h1').textContent = dict.title;
+      document.getElementById('sub').textContent = dict.subtitle;
+      document.getElementById('plainLabel').textContent = dict.plain;
+      document.getElementById('vh').textContent = dict.external;
+      document.getElementById('igLink').setAttribute('aria-label', dict.aria);
+      const desc = document.getElementById('desc');
+      if (desc) desc.setAttribute('content', dict.description);
+      document.querySelectorAll('[data-set-lang]')
+        .forEach(btn => btn.setAttribute('aria-pressed', String(btn.dataset.setLang === lang)));
+      try { localStorage.setItem('lang', lang); } catch (_) {}
+    }
+
+    (function initLang(){
+      let lang = 'en';
+      try { lang = localStorage.getItem('lang') || (navigator.language || 'en').slice(0,2).toLowerCase(); } catch (_) {}
+      if (!['en','ko','es'].includes(lang)) lang = 'en';
+      applyLang(lang);
+    })();
+
+    document.querySelectorAll('[data-set-lang]').forEach(btn => {
+      btn.addEventListener('click', () => applyLang(btn.dataset.setLang));
+    });
+  </script>
+</body>
+</html>
