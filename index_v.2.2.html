@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Daddy J Bar – Find us on Instagram</title>
+  <meta id="desc" name="description" content="Daddy J Bar – quick landing page with our Instagram link." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Sans+KR:wght@100..900&family=Noto+Sans+JP:wght@100..900&family=Noto+Sans+SC:wght@100..900&family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <style>
+    :root {
+      --bg: #0f1115;
+      --fg: #e5e7eb;
+      --muted: #c9ced6;
+      --card: rgba(10, 14, 22, .72);
+      --accent1: #F58529;
+      --accent2: #FEDA77;
+      --accent3: #DD2A7B;
+      --accent4: #8134AF;
+      --accent5: #515BD4;
+      --g: conic-gradient(from 210deg, var(--accent1), var(--accent2), var(--accent3), var(--accent4), var(--accent5), var(--accent1));
+      --radius: 20px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font: 16px/1.6 "Noto Sans", "Noto Sans KR", "Noto Sans JP", "Noto Sans SC", "Noto Sans Arabic",
+            system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--fg);
+      background: var(--bg);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    /* Background Layers */
+    body::before {
+      content: "";
+      position: fixed; inset: 0;
+      background: url('daddyj_bg.png') center / cover no-repeat;
+      z-index: -1;
+      will-change: transform, filter;
+    }
+    body::after {
+      content: "";
+      position: fixed; inset:0;
+      background: radial-gradient(800px 600px at 15% 10%, rgba(0,0,0,.25), transparent 60%),
+                  radial-gradient(1000px 750px at 85% 90%, rgba(0,0,0,.25), transparent 65%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Animation */
+    @keyframes bgShift {
+      0% { transform: scale(1) translate(0,0); filter: saturate(100%); }
+      35% { transform: scale(1.05) translate(1.5%,-1.5%); filter: saturate(125%); }
+      100% { transform: scale(1) translate(0,0); filter: saturate(100%); }
+    }
+    body.lang-animate::before {
+      animation: bgShift 900ms ease-in-out;
+    }
+
+    /* Language Menu */
+    .lang { position: fixed; top: 16px; right: 16px; z-index: 20; display: flex; align-items: center; gap: 8px; }
+    .lang-chip {
+      background: var(--g); color: #fff; font-weight: 800; letter-spacing: .3px;
+      padding: 8px 12px; border-radius: 999px;
+      min-width: 120px; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,.25);
+      white-space: nowrap;
+    }
+    .lang-btn {
+      appearance: none; border: 0; cursor: pointer;
+      display: grid; place-items: center;
+      width: 42px; height: 42px; border-radius: 999px;
+      background: rgba(0,0,0,.35);
+      color: var(--fg);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      backdrop-filter: blur(6px);
+      transition: transform .12s ease, background .2s ease;
+    }
+    .lang-btn:focus-visible { outline: 2px solid white; outline-offset: 2px; }
+    .lang-btn[aria-expanded="true"] { transform: translateY(-1px); }
+
+    .lang-list {
+      position: absolute; top: 52px; right: 0;
+      background: var(--card);
+      backdrop-filter: blur(8px);
+      border-radius: 14px;
+      padding: 6px;
+      box-shadow: 0 16px 40px rgba(0,0,0,.4);
+      border: 1px solid rgba(255,255,255,.08);
+      min-width: 220px;
+      transform-origin: top right;
+      transform: scaleY(.85);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform .18s cubic-bezier(.2,.9,.1,1), opacity .18s ease;
+    }
+    .lang-list.open {
+      transform: scaleY(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .lang-item {
+      width: 100%; text-align: left;
+      background: transparent; border: 0; color: var(--fg);
+      padding: 10px 12px; border-radius: 10px; cursor: pointer;
+      font-weight: 700;
+      display: flex; align-items: center; gap: 10px;
+      transition: background .2s ease, transform .12s ease;
+      white-space: nowrap;
+    }
+    .lang-item:hover {
+      background: var(--g);
+      color: #fff;
+      transform: translateX(2px);
+    }
+    .visually-hidden {
+      position: absolute !important; height: 1px; width: 1px;
+      overflow: hidden; clip: rect(1px,1px,1px,1px); white-space: nowrap;
+    }
+
+    /* Main Card */
+    .card {
+      width: min(660px, 100%);
+      background: var(--card);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      padding: 28px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .brand { display: flex; justify-content: center; margin-bottom: 8px; }
+    .brand img { width: min(520px, 85%); height: auto; display: block; filter: drop-shadow(0 4px 16px rgba(0,0,0,.35)); }
+    h1 { margin: 0 0 8px; font-size: 0; }
+    p { margin: 0 0 20px; color: var(--muted); }
+    .ig-link {
+      display: inline-flex; align-items: center; gap: 12px;
+      text-decoration: none; padding: 14px 18px; border-radius: 999px;
+      font-weight: 700; position: relative; isolation: isolate; color: white; background: var(--g);
+      transition: transform .12s ease;
+    }
+    .ig-link:focus-visible { outline: 2px solid white; outline-offset: 2px; }
+    .ig-link:hover { transform: translateY(-1px); }
+    .ig-link::before {
+      content: ""; position: absolute; inset: 0; border-radius: inherit;
+      filter: blur(18px); opacity: .5; z-index: -1; background: var(--g);
+      transition: opacity .2s ease;
+    }
+    .ig-link:hover::before { opacity: .8; }
+    .ig-icon { width: 22px; height: 22px; flex: 0 0 22px; }
+    .handle { font-weight: 800; }
+    .alt { margin-top: 18px; font-size: 14px; }
+    .alt a { color: var(--fg); font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="lang" id="langWrap">
+    <span id="langCurrent" class="lang-chip">English - EN</span>
+    <button id="langBtn" class="lang-btn" aria-haspopup="menu" aria-expanded="false" aria-label="Change language">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+        <ellipse cx="12" cy="12" rx="3.5" ry="9" stroke="currentColor" stroke-width="2"/>
+        <path d="M3 12h18M12 3v18" stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </button>
+    <div id="langMenu" class="lang-list" role="menu" aria-labelledby="langBtn">
+      <button class="lang-item" role="menuitemradio" data-set-lang="en" aria-checked="true">English - EN</button>
+      <button class="lang-item" role="menuitemradio" data-set-lang="ko" aria-checked="false">한국어 - KO</button>
+      <button class="lang-item" role="menuitemradio" data-set-lang="es" aria-checked="false">Español - ES</button>
+      <button class="lang-item" role="menuitemradio" data-set-lang="ru" aria-checked="false">Русский - RU</button>
+      <button class="lang-item" role="menuitemradio" data-set-lang="fr" aria-checked="false">Français - FR</button>
+      <button class="lang-item" role="menuitemradio" data-set-lang="zh" aria-checked="false">中文 - ZH</button>
+      <button class="lang-item" role="menuitemradio" data-set-lang="ja" aria-checked="false">日本語 - JA</button>
+      <button class="lang-item" role="menuitemradio" data-set-lang="ar" aria-checked="false">العربية - AR</button>
+    </div>
+  </div>
+
+  <main class="card" role="main">
+    <div class="brand" aria-hidden="true">
+      <img src="daddyj_logo.png" alt="Daddy J — Casual Bar logo" />
+    </div>
+    <h1 id="h1" class="visually-hidden">Daddy J Bar – Find us on Instagram</h1>
+    <p id="sub">Tap the button to visit our profile.</p>
+
+    <a id="igLink" class="ig-link" href="https://instagram.com/daddyj_anam" target="_blank" rel="noopener noreferrer" aria-label="Open Instagram profile in a new tab">
+      <svg class="ig-icon" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="igGrad" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#F58529"/>
+            <stop offset="30%" stop-color="#FEDA77"/>
+            <stop offset="50%" stop-color="#DD2A7B"/>
+            <stop offset="70%" stop-color="#8134AF"/>
+            <stop offset="100%" stop-color="#515BD4"/>
+          </linearGradient>
+        </defs>
+        <path fill="url(#igGrad)" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.51 5.51 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zM18 6.8a1.2 1.2 0 1 1-1.2 1.2A1.2 1.2 0 0 1 18 6.8z"/>
+      </svg>
+      <span class="handle">@daddyj_anam</span>
+      <span aria-hidden="true">→</span>
+    </a>
+
+    <p class="alt"><span id="plainLabel">Prefer a plain link?</span> <a href="https://instagram.com/daddyj_anam" target="_blank" rel="noopener noreferrer">@daddyj_anam</a></p>
+    <p id="vh" class="visually-hidden">External link opens in a new tab.</p>
+  </main>
+
+  <script>
+    const I18N = {
+      en: { title: "Daddy J Bar – Find us on Instagram", subtitle: "Tap the button to visit our profile.", aria: "Open Instagram profile in a new tab", plain: "Prefer a plain link?", external: "External link opens in a new tab.", description: "Daddy J Bar – quick landing page with our Instagram link.", chip: "English - EN" },
+      ko: { title: "대디제이 바 – 인스타그램에서 만나보세요", subtitle: "프로필로 이동하려면 버튼을 눌러 주세요.", aria: "새 탭에서 인스타그램 프로필 열기", plain: "텍스트 링크가 더 편하신가요?", external: "외부 링크가 새 탭에서 열립니다.", description: "대디제이 바 – 인스타그램 링크 랜딩 페이지.", chip: "한국어 - KO" },
+      es: { title: "Bar Daddy J – Encuéntranos en Instagram", subtitle: "Toca el botón para visitar nuestro perfil.", aria: "Abrir el perfil de Instagram en una pestaña nueva", plain: "¿Prefieres un enlace simple?", external: "El enlace externo se abre en una pestaña nueva.", description: "Bar Daddy J – página de aterrizaje con nuestro enlace de Instagram.", chip: "Español - ES" },
+      ru: { title: "Бар Daddy J – Найдите нас в Instagram", subtitle: "Нажмите кнопку, чтобы перейти к нашему профилю.", aria: "Открыть профиль в Instagram в новой вкладке", plain: "Предпочитаете обычную ссылку?", external: "Внешняя ссылка откроется в новой вкладке.", description: "Бар Daddy J – посадочная страница со ссылкой на Instagram.", chip: "Русский - RU" },
+      fr: { title: "Bar Daddy J – Retrouvez‑nous sur Instagram", subtitle: "Appuyez sur le bouton pour visiter notre profil.", aria: "Ouvrir le profil Instagram dans un nouvel onglet", plain: "Vous préférez un lien simple ?", external: "Le lien externe s’ouvre dans un nouvel onglet.", description: "Bar Daddy J – page d’atterrissage avec notre lien Instagram.", chip: "Français - FR" },
+      zh: { title: "Daddy J 酒吧 – 在 Instagram 上找到我们", subtitle: "点击按钮前往我们的主页。", aria: "在新标签页打开 Instagram 个人主页", plain: "更喜欢纯文本链接？", external: "外部链接将在新标签页中打开。", description: "Daddy J 酒吧 – 包含我们 Instagram 链接的简洁页面。", chip: "中文 - ZH" },
+      ja: { title: "Daddy J バー — Instagramで見つけよう", subtitle: "ボタンを押してプロフィールへ。", aria: "新しいタブでInstagramのプロフィールを開く", plain: "テキストリンクのほうがいい？", external: "外部リンクは新しいタブで開きます。", description: "Daddy J バー — Instagramリンクのランディングページ。", chip: "日本語 - JA" },
+      ar: { title: "بار دادي جي – اعثر علينا على إنستغرام", subtitle: "اضغط الزر للانتقال إلى صفحتنا.", aria: "افتح ملفنا على إنستغرام في علامة تبويب جديدة", plain: "تُفضّل رابطًا نصيًا؟", external: "سيفتح الرابط الخارجي في علامة تبويب جديدة.", description: "بار دادي جي – صفحة بسيطة مع رابط إنستغرام.", chip: "العربية - AR" }
+    };
+
+    const supported = ["en","ko","es","ru","fr","zh","ja","ar"];
+
+    function applyLang(lang) {
+      const d = I18N[lang] || I18N.en;
+      document.documentElement.lang = supported.includes(lang) ? lang : "en";
+      document.documentElement.dir = (lang === "ar") ? "rtl" : "ltr";
+      document.title = d.title;
+      h1.textContent = d.title;
+      sub.textContent = d.subtitle;
+      plainLabel.textContent = d.plain;
+      vh.textContent = d.external;
+      igLink.setAttribute('aria-label', d.aria);
+      desc && desc.setAttribute('content', d.description);
+      langCurrent.textContent = d.chip;
+      document.querySelectorAll('[data-set-lang]').forEach(b => b.setAttribute('aria-checked', String(b.dataset.setLang === lang)));
+      try { localStorage.setItem('lang', lang); } catch (_) {}
+      
+      // Trigger animation
+      document.body.classList.remove('lang-animate');
+      void document.body.offsetWidth; // Force reflow
+      document.body.classList.add('lang-animate');
+    }
+
+    const wrap = langWrap;
+    const trigger = langBtn;
+    const menu = langMenu;
+
+    function openMenu(open) {
+      trigger.setAttribute('aria-expanded', String(open));
+      menu.classList.toggle('open', open);
+      if (open) {
+        (menu.querySelector('[aria-checked="true"]') || menu.querySelector('.lang-item'))?.focus();
+      }
+    }
+
+    wrap.addEventListener('pointerdown', e => {
+      const inBtn = e.target.closest && e.target.closest('#langBtn');
+      if (inBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        openMenu(!menu.classList.contains('open'));
+      }
+    });
+
+    wrap.addEventListener('click', e => {
+      const inBtn = e.target.closest && e.target.closest('#langBtn');
+      if (inBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
+    
+    document.addEventListener('pointerdown', e => {
+      if (!wrap.contains(e.target)) openMenu(false);
+    });
+
+    menu.addEventListener('keydown', (e) => {
+      const items = Array.from(menu.querySelectorAll('.lang-item')); const i = items.indexOf(document.activeElement);
+      if (e.key === 'Escape') { openMenu(false); trigger.focus(); }
+      else if (e.key === 'ArrowDown') { e.preventDefault(); (items[i+1] || items[0]).focus(); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); (items[i-1] || items[items.length-1]).focus(); }
+      else if (e.key === 'Home') { e.preventDefault(); items[0].focus(); }
+      else if (e.key === 'End') { e.preventDefault(); items[items.length-1].focus(); }
+      else if (e.key === 'Enter' || e.key === ' ') { document.activeElement.click(); }
+    });
+
+    menu.querySelectorAll('.lang-item').forEach(b => {
+      b.addEventListener('click', () => {
+        applyLang(b.dataset.setLang);
+        openMenu(false);
+        trigger.focus();
+      });
+      b.setAttribute('data-set-lang', b.getAttribute('data-set-lang') || b.dataset.setLang);
+    });
+
+    (function init() {
+      let lang = "en";
+      try { lang = (localStorage.getItem('lang') || navigator.language || "en").slice(0,2).toLowerCase(); } catch(_) {}
+      if (!supported.includes(lang)) lang = "en";
+      applyLang(lang);
+    })();
+  </script>
+</body>
+</html>
